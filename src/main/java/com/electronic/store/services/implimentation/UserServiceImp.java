@@ -17,8 +17,6 @@ import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.PageRequest;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -26,10 +24,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-import static org.springframework.data.domain.PageRequest.of;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -49,7 +45,7 @@ public class UserServiceImp implements UserService {
         // Random userId
         String userId= UUID.randomUUID().toString();
         userDto.setUserId(userId);
-        // Dto to user to save in the database
+        // Dto to user to save in the database(or use modelmapper directly(mapper.map))
         User user = dtoToEntity(userDto);
         User save = userRepository.save(user);//save user in the database
         //user to Dto again to send back in response
@@ -59,7 +55,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto, String userId) {
-        User user = userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundExc("User with the given id does not exist"));;
+        User user = userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundExc("User with the given id does not exist"));
 
         if(userDto.getName()!=null)user.setName(userDto.getName());
         if(userDto.getEmail()!=null)user.setEmail(userDto.getEmail());
@@ -132,30 +128,11 @@ public class UserServiceImp implements UserService {
     }
     // Other methods
     User dtoToEntity(UserDto userDto){
-        //using ModelMapper
         User map = mapper.map(userDto, User.class);// autowired modelmapper to map(project config)
-        //BTS
-//        User user = User.builder()
-//                .userId(userDto.getUserId())
-//                .name(userDto.getName())
-//                .email(userDto.getEmail())
-//                .gender(userDto.getGender())
-//                .password(userDto.getPassword())
-//                .imageName(userDto.getImageName())
-//                .build();
         return map;
     }
     UserDto entityToDto(User user){
-        //using ModelMapper
         UserDto map = mapper.map(user, UserDto.class);
-//        UserDto userDto = UserDto.builder()
-//                .userId(user.getUserId())
-//                .name(user.getName())
-//                .email(user.getEmail())
-//                .gender(user.getGender())
-//                .password(user.getPassword())
-//                .imageName(user.getImageName())
-//                .build();
         return map;
     }
 }
