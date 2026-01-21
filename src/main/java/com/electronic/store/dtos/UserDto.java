@@ -24,7 +24,6 @@ public class UserDto {
 
 @Size(min=4,message = "Enter valid gender")
     private String gender;
-//custom pattern
-    @NotBlank
+
     private String imageName;
 }

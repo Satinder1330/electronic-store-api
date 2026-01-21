@@ -4,12 +4,12 @@ import com.electronic.store.dtos.UserDto;
 import com.electronic.store.helper.CustomExceptionResponse;
 import com.electronic.store.helper.CustomPaginationResponse;
 import com.electronic.store.helper.ImageApiResponse;
-import com.electronic.store.repositories.UserRepository;
-import com.electronic.store.services.ImageService;
+import com.electronic.store.services.imageService.ImageService;
 import com.electronic.store.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,20 +27,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
     private ImageService imageService;
 
+    public UserController(@Qualifier("userImageService") ImageService imageService) {
+        this.imageService = imageService;
+    }
 
-@Value("${user.profile.image.path}")
+    @Value("${user.profile.image.path}")
     private  String imageUploadPath;
-@Value("${user.profile.image.get.path}")
-private String imagePath;
+    @Value("${user.profile.image.get.path}")
+    private String imagePath;
 
     @PostMapping("/create")
     public ResponseEntity<UserDto>CreateUser(@RequestBody @Valid UserDto userDto){
         UserDto user = userService.createUser(userDto);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<UserDto>updateUser(@RequestBody  UserDto userDto ,
                                              @PathVariable("id") String id ){
