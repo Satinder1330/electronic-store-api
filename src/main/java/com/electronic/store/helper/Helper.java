@@ -23,17 +23,17 @@ public class Helper {
         response.setTotalPages(page.getTotalPages());
         return  response;
     }
-
-public void categoryToProductDto(Product product, ProductDto map){
+    public void categoryToProductDto(Product product, ProductDto map){
     Set<String>ids=new HashSet<>();
     Set<String>names=new HashSet<>();
     List<Category> categories = product.getCategories();
-    categories.forEach(category -> {
+    categories.forEach(category ->
+     {
         ids.add(category.getCategoryId());
         names.add(category.getTitle());
-    });
+     });
     map.setCategoryNames(names);
     map.setCategoryIds(ids);
-}
+  }
 
 }

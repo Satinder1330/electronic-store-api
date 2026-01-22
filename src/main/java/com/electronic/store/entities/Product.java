@@ -2,9 +2,7 @@ package com.electronic.store.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +28,6 @@ public class Product {
     private Date addedDate;
     private Boolean live;
     private  Boolean stock;
-
     private String productImage;
 
     @ManyToMany(fetch = FetchType.EAGER)
