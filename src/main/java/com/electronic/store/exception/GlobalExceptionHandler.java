@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(ResourceNotFoundExc.class)
-    public ResponseEntity<ApiCustomResponse>resourceNotFoundException(ResourceNotFoundExc Ex){
+    public ResponseEntity<ApiCustomResponse>ResourceNotFoundExc(ResourceNotFoundExc Ex){
         ApiCustomResponse build = ApiCustomResponse.builder()
                 .message(Ex.getMessage())
                 .status(HttpStatus.NOT_FOUND)
@@ -42,7 +42,7 @@ return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ApiCustomResponse>resourceNotFoundException(BadRequestException Ex){
+    public ResponseEntity<ApiCustomResponse>ResourceNotFoundExc(BadRequestException Ex){
         ApiCustomResponse build = ApiCustomResponse.builder()
                 .message(Ex.getMessage())
                 .status(HttpStatus.BAD_REQUEST)

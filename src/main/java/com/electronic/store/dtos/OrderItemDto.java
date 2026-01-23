@@ -1,17 +1,15 @@
 package com.electronic.store.dtos;
 
 import lombok.*;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
-public class CartItemDto {
-
-    private int cartItemId;
-    private ProductDto product;
+public class OrderItemDto {
+    private int orderItemId;
     private int quantity;
-    private int totalPrice;
-
+    private Double totalPrice;
+    private ProductDto product;
 }

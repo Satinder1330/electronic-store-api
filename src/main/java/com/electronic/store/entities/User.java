@@ -1,9 +1,10 @@
 package com.electronic.store.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,6 +25,9 @@ public class User {
     private String gender;
     @Column(name = "user_imageName")
     private String imageName;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    List<Order> orderList= new ArrayList<>();
 
 
 }

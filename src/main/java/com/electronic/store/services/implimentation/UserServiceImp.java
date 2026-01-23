@@ -97,7 +97,7 @@ public class UserServiceImp implements UserService {
             UserDto userDto = entityToDto(user);
             userDtoList.add(userDto);
         });
-        CustomPaginationResponse<UserDto> response = helper.getPaginatioResponse(page, userDtoList, pageNumber, pageSize);// info in the response
+        CustomPaginationResponse<UserDto> response = helper.getPageableResponse(page, userDtoList, pageNumber, pageSize);// info in the response
         return response;
     }
 

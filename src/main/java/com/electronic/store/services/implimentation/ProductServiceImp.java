@@ -78,7 +78,7 @@ public class ProductServiceImp implements ProductService {
        };
         Product saved = productRepository.save(product);
         ProductDto map = mapper.map(product, ProductDto.class);
-        helper.categoryToProductDto(product,map);
+        helper.categoriesInfoFromProduct(product,map);
        return map;
     }
 
@@ -104,7 +104,7 @@ public class ProductServiceImp implements ProductService {
     public ProductDto getOne(String productId) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundExc("Product of the given id does not exist!"));
         ProductDto map = mapper.map(product, ProductDto.class);
-        helper.categoryToProductDto(product, map);
+        helper.categoriesInfoFromProduct(product, map);
         return map;
     }
 
@@ -117,11 +117,11 @@ public class ProductServiceImp implements ProductService {
         List<ProductDto>list= new ArrayList<>();
         content.forEach(product -> {
             ProductDto map = mapper.map(product, ProductDto.class);
-            helper.categoryToProductDto(product,map);
+            helper.categoriesInfoFromProduct(product,map);
             list.add(map);
         });
 
-        CustomPaginationResponse<ProductDto> paginatioResponse = helper.getPaginatioResponse(page, list, pageNumber, pageSize);
+        CustomPaginationResponse<ProductDto> paginatioResponse = helper.getPageableResponse(page, list, pageNumber, pageSize);
         return paginatioResponse;
     }
 
@@ -134,11 +134,11 @@ public class ProductServiceImp implements ProductService {
         List<ProductDto>list= new ArrayList<>();
         content.forEach(product -> {
             ProductDto map = mapper.map(product, ProductDto.class);
-            helper.categoryToProductDto(product,map);
+            helper.categoriesInfoFromProduct(product,map);
             list.add(map);
         });
 
-        CustomPaginationResponse<ProductDto> paginatioResponse = helper.getPaginatioResponse(page, list, pageNumber, pageSize);
+        CustomPaginationResponse<ProductDto> paginatioResponse = helper.getPageableResponse(page, list, pageNumber, pageSize);
         return paginatioResponse;
     }
 
@@ -151,10 +151,10 @@ public class ProductServiceImp implements ProductService {
         List<ProductDto>list= new ArrayList<>();
         content.forEach(product -> {
             ProductDto map = mapper.map(product, ProductDto.class);
-            helper.categoryToProductDto(product,map);
+            helper.categoriesInfoFromProduct(product,map);
             list.add(map);
         });
-        CustomPaginationResponse<ProductDto> paginatioResponse = helper.getPaginatioResponse(page, list, pageNumber, pageSize);
+        CustomPaginationResponse<ProductDto> paginatioResponse = helper.getPageableResponse(page, list, pageNumber, pageSize);
         return paginatioResponse;
     }
 
@@ -198,7 +198,7 @@ public class ProductServiceImp implements ProductService {
        product.setCategories(categories);
         productRepository.save(product);
         ProductDto map = mapper.map(product, ProductDto.class);
-        helper.categoryToProductDto(product,map);
+        helper.categoriesInfoFromProduct(product,map);
        return map;
     }
 
@@ -212,7 +212,7 @@ public class ProductServiceImp implements ProductService {
         product.setCategories(categories);
         productRepository.save(product);
         ProductDto map = mapper.map(product, ProductDto.class);
-        helper.categoryToProductDto(product,map);
+        helper.categoriesInfoFromProduct(product,map);
         return map;
 
     }
@@ -228,11 +228,11 @@ public class ProductServiceImp implements ProductService {
         List<ProductDto> list = new ArrayList<>();
         content.forEach(product -> {
             ProductDto map = mapper.map(product, ProductDto.class);
-            helper.categoryToProductDto(product,map);
+            helper.categoriesInfoFromProduct(product,map);
             list.add(map);
 
         });
-        CustomPaginationResponse<ProductDto> paginatioResponse = helper.getPaginatioResponse(page, list, pageNumber, pageSize);
+        CustomPaginationResponse<ProductDto> paginatioResponse = helper.getPageableResponse(page, list, pageNumber, pageSize);
         return paginatioResponse;
     }
 

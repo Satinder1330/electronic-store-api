@@ -11,8 +11,8 @@ import java.util.List;
 @Builder
 public class CartDto {
     private String cartId;
-    private Date createdDate;
-    private  UserDto user;
+    private Date createdAt;
+    private UserDto user;
     private List<CartItemDto> items = new ArrayList<>();
 
 }

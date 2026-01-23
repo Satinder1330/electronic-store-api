@@ -2,7 +2,6 @@ package com.electronic.store.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,16 +11,16 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "cart")
 public class Cart {
     @Id
     private String cartId;
-    private Date createdDate;
-
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
-    private List<CartItem> cartItems = new ArrayList<>();
+    private Date createdAt;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<CartItem> items = new ArrayList<>();
 
 }

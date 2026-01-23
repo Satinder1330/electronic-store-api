@@ -78,7 +78,7 @@ public class CategoryServiceImp implements CategoryService {
         content.forEach(category -> {
             list.add(mapper.map(category, CategoryDto.class));
         });
-        CustomPaginationResponse<CategoryDto> paginatioResponse = helper.getPaginatioResponse(page, list, pageNumber, pageSize);
+        CustomPaginationResponse<CategoryDto> paginatioResponse = helper.getPageableResponse(page, list, pageNumber, pageSize);
         return paginatioResponse;
     }
 

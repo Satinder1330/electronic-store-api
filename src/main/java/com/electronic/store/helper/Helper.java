@@ -12,7 +12,7 @@ import java.util.Set;
 @Component
 public class Helper {
 //custom pagination response mapping
-    public <T>CustomPaginationResponse<T> getPaginatioResponse(Page<?> page, List<T> list, int pageNumber, int pageSize){
+    public <T>CustomPaginationResponse<T> getPageableResponse(Page<?> page, List<T> list, int pageNumber, int pageSize){
 
         CustomPaginationResponse<T> response = new CustomPaginationResponse<>();
         response.setContent(list);
@@ -23,7 +23,7 @@ public class Helper {
         response.setTotalPages(page.getTotalPages());
         return  response;
     }
-    public void categoryToProductDto(Product product, ProductDto map){
+    public void categoriesInfoFromProduct(Product product, ProductDto map){
     Set<String>ids=new HashSet<>();
     Set<String>names=new HashSet<>();
     List<Category> categories = product.getCategories();

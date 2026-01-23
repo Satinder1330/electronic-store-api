@@ -34,4 +34,6 @@ public class Product {
     @JoinTable(name = "product_categories")
     private List<Category>categories = new ArrayList<>();
 
+
+
 }

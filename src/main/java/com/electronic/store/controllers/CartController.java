@@ -18,12 +18,12 @@ public class CartController {
     public ResponseEntity<CartDto> addItemToCart(@RequestParam String userId,
                                                  @RequestParam String productId,
                                                  @RequestParam int quantity){
-        CartDto cartDto = cartService.addItemInCart(userId, productId, quantity);
+        CartDto cartDto = cartService.addItemToCart(userId, productId, quantity);
         return  new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
     @DeleteMapping("/{userId}/delete/{cartItemId}")
     public ResponseEntity<ApiCustomResponse> deleteItem(@PathVariable String userId,@PathVariable int cartItemId){
-        cartService.deleteItem(userId,cartItemId);
+        cartService.removeItemFromCart(userId,cartItemId);
         return new ResponseEntity<>(new ApiCustomResponse("Item has been deleted from your cart",HttpStatus.OK),HttpStatus.OK);
     }
     @DeleteMapping("/clearCart/{userId}")
@@ -34,7 +34,7 @@ public class CartController {
     }
     @GetMapping("/getCart/{userId}")
     public  ResponseEntity<CartDto> getCart(@PathVariable String userId){
-        CartDto cartOfUser = cartService.getCartOfUser(userId);
+        CartDto cartOfUser = cartService.getCartByUser(userId);
         return new ResponseEntity<>(cartOfUser,HttpStatus.OK);
     }
 
