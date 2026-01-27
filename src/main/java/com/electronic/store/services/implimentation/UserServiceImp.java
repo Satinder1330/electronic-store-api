@@ -1,11 +1,13 @@
 package com.electronic.store.services.implimentation;
 
 import com.electronic.store.dtos.UserDto;
+import com.electronic.store.entities.Role;
 import com.electronic.store.entities.User;
 import com.electronic.store.exception.ResourceNotFoundExc;
 import com.electronic.store.helper.CustomExceptionResponse;
 import com.electronic.store.helper.CustomPaginationResponse;
 import com.electronic.store.helper.Helper;
+import com.electronic.store.repositories.RoleRepository;
 import com.electronic.store.repositories.UserRepository;
 import com.electronic.store.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.PageRequest;
 import java.io.IOException;
@@ -35,6 +38,11 @@ public class UserServiceImp implements UserService {
     private ModelMapper mapper;
     @Autowired
             private Helper helper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Value("${user.profile.image.get.path}")
     private String imagePath;
 
@@ -47,6 +55,14 @@ public class UserServiceImp implements UserService {
         userDto.setUserId(userId);
         // Dto to user to save in the database(or use modelmapper directly(mapper.map))
         User user = dtoToEntity(userDto);
+        //encode password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //set role to the user
+        Role role = new Role(); // if not present
+        role.setRoleId(UUID.randomUUID().toString());
+        role.setName("ROLE_USER");
+        Role roleUser = roleRepository.findByName("ROLE_USER").orElse(role);
+        user.setRoles(List.of(roleUser));
         User save = userRepository.save(user);//save user in the database
         //user to Dto again to send back in response
         UserDto userDto1 = entityToDto(save);
@@ -62,6 +78,7 @@ public class UserServiceImp implements UserService {
         if (userDto.getPassword()!=null)user.setPassword(userDto.getPassword());
         if (userDto.getGender()!=null)user.setGender(userDto.getGender());
         if (userDto.getImageName()!=null)user.setImageName(userDto.getImageName());
+        if(userDto.getPassword()!=null)user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User saveduser = userRepository.save(user);
         UserDto userDto1 = entityToDto(saveduser);
         return userDto1;
