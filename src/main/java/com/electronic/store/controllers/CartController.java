@@ -1,5 +1,6 @@
 package com.electronic.store.controllers;
 
+import com.electronic.store.config.AppConstants;
 import com.electronic.store.dtos.CartDto;
 import com.electronic.store.helper.ApiCustomResponse;
 import com.electronic.store.services.CartService;
@@ -17,7 +18,7 @@ public class CartController {
     private   CartService cartService;
 
     @PostMapping("/addItem")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('"+ AppConstants.ROLE_USER+"','"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<CartDto> addItemToCart(@RequestParam String userId,
                                                  @RequestParam String productId,
                                                  @RequestParam int quantity) throws BadRequestException {
@@ -26,20 +27,20 @@ public class CartController {
     }
     //delete item from the cart
     @DeleteMapping("/{userId}/delete/{cartItemId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<ApiCustomResponse> deleteItem(@PathVariable String userId,@PathVariable int cartItemId){
         cartService.removeItemFromCart(userId,cartItemId);
         return new ResponseEntity<>(new ApiCustomResponse("Item has been deleted from your cart",HttpStatus.OK),HttpStatus.OK);
     }
     @DeleteMapping("/clearCart/{userId}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('"+ AppConstants.ROLE_USER+"','"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<ApiCustomResponse> clearCart(@PathVariable String userId){
         cartService.clearCart(userId);
         return new ResponseEntity<>(new ApiCustomResponse("Cart of the user is now clear",HttpStatus.OK),HttpStatus.OK);
 
     }
     @GetMapping("/getCart/{userId}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('"+ AppConstants.ROLE_USER+"','"+AppConstants.ROLE_ADMIN+"')")
     public  ResponseEntity<CartDto> getCart(@PathVariable String userId){
         CartDto cartOfUser = cartService.getCartByUser(userId);
         return new ResponseEntity<>(cartOfUser,HttpStatus.OK);

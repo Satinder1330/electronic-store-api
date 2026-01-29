@@ -14,3 +14,4 @@ spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MySQLDialect
 user.profile.image.path = images/users
 #image Get Path
 user.profile.image.get.path=images/users/
+

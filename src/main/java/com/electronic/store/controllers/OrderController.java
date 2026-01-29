@@ -1,5 +1,6 @@
 package com.electronic.store.controllers;
 
+import com.electronic.store.config.AppConstants;
 import com.electronic.store.dtos.OrderDto;
 import com.electronic.store.dtos.OrderInfoRequest;
 import com.electronic.store.helper.ApiCustomResponse;
@@ -23,14 +24,14 @@ public class OrderController {
     }
 
     @PostMapping("/addOrder")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('"+ AppConstants.ROLE_USER+"','"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<OrderDto> addOrder(@RequestBody OrderInfoRequest request){
         OrderDto orderDto = orderService.createOrder(request);
         return new ResponseEntity<>(orderDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{orderId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<ApiCustomResponse> delete(@PathVariable String orderId){
         orderService.deleteOrder(orderId);
         return  new ResponseEntity<>( new ApiCustomResponse("Your order has been deleted successfully",HttpStatus.OK),HttpStatus.OK);
@@ -38,7 +39,7 @@ public class OrderController {
 
 
     @GetMapping("/getSingle")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('"+ AppConstants.ROLE_USER+"','"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<OrderDto> get(@RequestParam String userId,@RequestParam String orderId) {
         OrderDto orderDto = orderService.getSingle(userId, orderId);
         return  new ResponseEntity<>(orderDto,HttpStatus.OK);
@@ -46,7 +47,7 @@ public class OrderController {
     }
     //all orders of single user
     @GetMapping("/getAll/{userId}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('"+ AppConstants.ROLE_USER+"','"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<CustomPaginationResponse<OrderDto> >AllOrdersOfUser(@PathVariable String userId,
                                                                                    @RequestParam int pageNumber,
                                                                                    @RequestParam int pageSize,
@@ -57,7 +58,7 @@ public class OrderController {
     }
     //get all the orders
     @GetMapping("/getAll")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<CustomPaginationResponse<OrderDto> >AllOrders(@RequestParam int pageNumber,
                                                                         @RequestParam int pageSize,
                                                                         @RequestParam String sortBy,
@@ -68,7 +69,7 @@ public class OrderController {
 
     //update status
     @PutMapping("/update/{orderId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('"+AppConstants.ROLE_ADMIN+"')")
     public ResponseEntity<OrderDto> update(@PathVariable String orderId,
                                                     @RequestBody OrderUpdateInfo orderUpdateInfo){
         OrderDto orderDto = orderService.updateStatus(orderUpdateInfo, orderId);
