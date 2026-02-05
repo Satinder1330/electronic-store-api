@@ -1,5 +1,6 @@
 package com.electronic.store.dtos;
 
+import com.electronic.store.entities.Providers;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -28,4 +29,6 @@ public class UserDto {
 
     private String imageName;
     private List<RoleDto> roles;
+    private Providers provider; // for google , facebook login
+
 }

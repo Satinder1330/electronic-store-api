@@ -36,6 +36,8 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     List<Role>roles = new ArrayList<>();
 
+    private Providers provider; // for google , facebook login
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

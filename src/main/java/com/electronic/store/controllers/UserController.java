@@ -6,6 +6,8 @@ import com.electronic.store.helper.CustomPaginationResponse;
 import com.electronic.store.helper.ImageApiResponse;
 import com.electronic.store.services.imageService.ImageService;
 import com.electronic.store.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name = "User Controller",description = "Rest Api to perform user operation")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -39,6 +42,7 @@ public class UserController {
     private String imagePath;
 
     @PostMapping("/create")
+    @Operation(summary = "Add  User")
     public ResponseEntity<UserDto>CreateUser(@RequestBody @Valid UserDto userDto){
         UserDto user = userService.createUser(userDto);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
@@ -52,12 +56,15 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Operation(summary = "Delete user")
+
     public ResponseEntity<CustomExceptionResponse>delete(@PathVariable String id) throws IOException {
         CustomExceptionResponse customExceptionResponse = userService.deleteUser(id);
         return new ResponseEntity<>(customExceptionResponse,HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
+    @Operation(summary = "Get all Users")
     public ResponseEntity<CustomPaginationResponse<UserDto>>getAll(@RequestParam(value = "pageNumber",defaultValue ="0",required = false ) int pageNumber,
                                                                    @RequestParam(value = "pageSize",defaultValue ="10",required = false) int pageSize,
                                                                    @RequestParam(value = "sortBy",defaultValue ="name",required = false) String sortBy,
@@ -84,7 +91,7 @@ public class UserController {
     }
 
     @PostMapping("/uploadImage/{userId}")
-    public   ResponseEntity<ImageApiResponse>upload(@PathVariable String userId, @RequestParam("userImage") MultipartFile file) throws IOException {
+    public   ResponseEntity<ImageApiResponse>upload(@PathVariable String userId, @RequestPart("userImage") MultipartFile file) throws IOException {
 
         imageService.uploadImage(file,imageUploadPath,userId);// @value ,path is in the properties
         UserDto userById = userService.getUserById(userId);

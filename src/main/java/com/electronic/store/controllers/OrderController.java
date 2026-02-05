@@ -7,6 +7,7 @@ import com.electronic.store.helper.ApiCustomResponse;
 import com.electronic.store.helper.CustomPaginationResponse;
 import com.electronic.store.helper.OrderUpdateInfo;
 import com.electronic.store.services.OrderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/order")
+@Tag(name = "Order Controller",description = "APIs for Orders")
+
 public class OrderController {
 
     private final OrderService orderService;

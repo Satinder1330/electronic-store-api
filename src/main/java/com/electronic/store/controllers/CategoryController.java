@@ -8,6 +8,7 @@ import com.electronic.store.helper.ImageApiResponse;
 import com.electronic.store.services.CategoryService;
 import com.electronic.store.services.ProductService;
 import com.electronic.store.services.imageService.ImageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/category")
+@Tag(name = "Categories Controller",description = "APIs for Categories")
+
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;

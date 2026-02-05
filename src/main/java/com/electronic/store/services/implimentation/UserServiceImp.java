@@ -105,7 +105,7 @@ public class UserServiceImp implements UserService {
     public CustomPaginationResponse<UserDto> getAllUser(int pageNumber, int pageSize, String sortBy, String sortDir) {
 
         Sort sort = (sortDir.equalsIgnoreCase("Asc"))?(Sort.by(sortBy).ascending()):(Sort.by(sortBy).descending());
-        Pageable pageable = PageRequest.of(pageNumber-1,pageSize,sort); // page starts from 1
+        Pageable pageable = PageRequest.of(pageNumber,pageSize,sort);
         Page<User> page = userRepository.findAll(pageable);
         List<User> list = page.getContent();
 

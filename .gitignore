@@ -36,6 +36,5 @@ build/
 
 # Uploaded files (local storage)
 images/
-# Spring Boot config (contains secrets)
-application.properties
+
 

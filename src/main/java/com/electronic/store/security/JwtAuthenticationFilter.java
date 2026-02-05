@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,11 +56,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //to check if user is already authenticated or not
         if(username != null && SecurityContextHolder.getContext().getAuthentication()==null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
             //match the token
             if(userDetails.getUsername().equals(username) && !jwtHelper.isTokenExpired(token)){
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }else {
+                throw new BadCredentialsException("Username is not matching");
             }
         }
         //process to next default filters
