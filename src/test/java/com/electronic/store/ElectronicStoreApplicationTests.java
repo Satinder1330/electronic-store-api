@@ -13,20 +13,5 @@ class ElectronicStoreApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private JwtHelper jwtHelper;
-	@Test
-	void testToken(){
-		User user = userRepository.findByEmail("admin123@gmail.com").get();
-		String token = jwtHelper.generateToken(user);
-		System.out.println("Token--"+token);
-		System.out.println("expiry -- "+jwtHelper.expirationDateOfToken(token));
-		System.out.println("all claims -- "+jwtHelper.getAllClaimsFromToken(token));
-		System.out.println("username-- "+jwtHelper.getUsernameFromToken(token));
-		System.out.println("is it expired -- "+jwtHelper.isTokenExpired(token));
-
-	}
 
 }

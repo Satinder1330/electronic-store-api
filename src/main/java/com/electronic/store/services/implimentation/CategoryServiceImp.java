@@ -71,7 +71,7 @@ public class CategoryServiceImp implements CategoryService {
     @Override
     public CustomPaginationResponse<CategoryDto> getAll(int pageNumber,int pageSize,String sortBy,String sortDir) {
         Sort sort = (sortDir.equalsIgnoreCase("asc"))?(Sort.by(sortBy).ascending()):(Sort.by(sortBy).descending());
-        Pageable pageable = PageRequest.of(pageNumber-1,pageSize,sort); //starts from page 1
+        Pageable pageable = PageRequest.of(pageNumber,pageSize,sort);
         Page<Category> page = categoryRepository.findAll(pageable);
         List<Category> content = page.getContent();
         List<CategoryDto>list= new ArrayList<>();
