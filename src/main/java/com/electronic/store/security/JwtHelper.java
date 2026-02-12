@@ -16,7 +16,7 @@ public class JwtHelper {
 
 
     //validity
-    public  static final long  TOKEN_VALIDITY = 5*60*1000;
+    public  static final long  TOKEN_VALIDITY = 30*60*1000;
 
     public static final String SECRET_KEY = "qtydgafaufusdyfgdshfashiufyuasfghfioyqewfggsgvlisudfiuyw";
 

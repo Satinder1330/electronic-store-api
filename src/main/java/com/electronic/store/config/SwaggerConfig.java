@@ -16,7 +16,9 @@ public class SwaggerConfig {
     public OpenAPI customOPenApi(){
         OpenAPI openAPI = new OpenAPI();
         openAPI.info(new Info().title("Electronics Store Backend:APIs")
-                .description("This is a SpringBoot Backend Project")
+                .description("This is a SpringBoot Backend Project." +
+                        " To access all the Api's generate a Jwt token through saved user email and password or create a user first." +
+                        " Add Jwt token in authorize")
                 .version("1.0.0")
                 .contact(new Contact().email("abc@gmail.com")
                         .url("www.facebook.com/abc")

@@ -93,7 +93,7 @@ public class UserController {
     @PostMapping("/uploadImage/{userId}")
     public   ResponseEntity<ImageApiResponse>upload(@PathVariable String userId, @RequestPart("userImage") MultipartFile file) throws IOException {
 
-        imageService.uploadImage(file,imageUploadPath,userId);// @value ,path is in the properties
+        ImageApiResponse imageApiResponse1 = imageService.uploadImage(file, imageUploadPath, userId);// @value ,path is in the properties
         UserDto userById = userService.getUserById(userId);
         String imageName = userById.getImageName();
         ImageApiResponse imageApiResponse = new ImageApiResponse(imageName,"Image is uploaded Successfully",HttpStatus.OK);
