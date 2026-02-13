@@ -4,6 +4,7 @@ import com.electronic.store.entities.Role;
 import com.electronic.store.entities.User;
 import com.electronic.store.repositories.RoleRepository;
 import com.electronic.store.repositories.UserRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -59,4 +60,13 @@ private PasswordEncoder passwordEncoder;
 
 
 	}
+	@PostConstruct
+	public void printEnv() {
+		System.out.println("MYSQLHOST=" + System.getenv("MYSQLHOST"));
+		System.out.println("MYSQLPORT=" + System.getenv("MYSQLPORT"));
+		System.out.println("MYSQLDATABASE=" + System.getenv("MYSQLDATABASE"));
+		System.out.println("MYSQLUSER=" + System.getenv("MYSQLUSER"));
+		System.out.println("MYSQLPASSWORD=" + System.getenv("MYSQLPASSWORD"));
+	}
+
 }
